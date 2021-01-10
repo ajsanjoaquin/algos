@@ -25,13 +25,14 @@ public class BruteCollinearPoints {
         conspointsArray=points.clone();
         pointsArray= points.clone();
 
+        for (int i = 0; i < conspointsArray.length; i++){
+            //check for any null items (has to be separate for loop because Arrays.sort throws out an error)
+            if (conspointsArray[i] == null) throw new IllegalArgumentException("At least one of the points passed is null");
+        }
+        
         int v = 1;
         Arrays.sort(conspointsArray);
         for (int i = 0; v < conspointsArray.length; i++){
-            //check for any null items
-            if (conspointsArray[i] == null) throw new IllegalArgumentException("At least one of the points passed is null");
-            if (conspointsArray[v] == null) throw new IllegalArgumentException("At least one of the points passed is null");
-
             //check for repeating items. We dont need another for loop because the array is sorted (and duplicates are neighbors)
             if (conspointsArray[i].compareTo(conspointsArray[v]) == 0) throw new IllegalArgumentException("There is at least one duplicate point");
             v++;
