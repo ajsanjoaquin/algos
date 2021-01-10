@@ -1,3 +1,6 @@
+/* Author: Ayrton San Joaquin
+January 2021 */
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 

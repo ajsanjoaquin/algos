@@ -1,3 +1,6 @@
+/* Author: Ayrton San Joaquin
+January 2021 */
+
 import java.util.Iterator;
 import edu.princeton.cs.algs4.StdRandom;
 import java.util.NoSuchElementException;

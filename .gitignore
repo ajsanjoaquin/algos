@@ -1,3 +1,6 @@
 *.zip
+*.txt
+*.png
 algs4.jar
 .vscode
+LineSegment.java
