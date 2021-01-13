@@ -1,7 +1,7 @@
-/* Author: Ayrton San Joaquin
+/**Author: Ayrton San Joaquin
 *  January 05 2020
-*  WARNING: Extremely Inefficient Algorithm O(N^4)
-*/
+*  WARNING: Extremely Inefficient Algorithm &Theta;(N^4)
+**/
 
 // brute is broken; fast seems to be fixed
 import java.util.ArrayList;
