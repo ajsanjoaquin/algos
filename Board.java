@@ -45,7 +45,9 @@ public class Board {
         int incorrect = 0;
         for (int i = 0; i < mainBoard.length; i++) {
             for (int j = 0; j < mainBoard.length; j++) {
-            if ( mainBoard[i][j] != ((i * n) + (j+1))) incorrect++;
+            // if everything is in its place AND 0 is in the very last position
+            if (!(i == n-1 && j == n-1) && mainBoard[i][j] != ((i * n) + (j+1))) incorrect++;
+            if (((i == n-1 && j == n-1) &&(mainBoard[i][j]!= 0))) incorrect++;
             }
         }
         return incorrect;
@@ -75,7 +77,7 @@ public class Board {
 
     // is this board the goal board?
     public boolean isGoal() {
-        return hamming() == 0;
+        return manhattan() == 0;
     }
 
     // does this board equal y?
