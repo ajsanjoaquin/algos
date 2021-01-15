@@ -2,6 +2,8 @@
 *  January 12 2020
 */
 
+// problems: hamming, twin
+
 import java.util.Arrays;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
@@ -88,6 +90,8 @@ public class Board {
         if (y == null) return false;
         
         if (y == this) return true;
+
+        if (y.getClass() != this.getClass()) return false;
 
         // convert object y into a type Board
         Board that = (Board) y;
