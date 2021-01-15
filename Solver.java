@@ -1,3 +1,6 @@
+/* Author: Ayrton San Joaquin
+*  January 14 2020
+*/
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
@@ -26,7 +29,7 @@ public class Solver {
         public Triplet getPrev() {return prev;}
 
         public int compareTo(Triplet that) {
-            return this.priority - that.priority;
+            return this.getPriority() - that.getPriority();
         } 
     }
 
@@ -42,12 +45,10 @@ public class Solver {
 
         moveNumber = 0;
         Triplet target;
-        int internalMoves = 0;
-        int twinMoveNumber = 0;
 
         // initial search node
-        Triplet starting = new Triplet(internalMoves, null , initial);
-        Triplet twin = new Triplet(internalMoves, null , initial.twin());
+        Triplet starting = new Triplet(0, null , initial);
+        Triplet twin = new Triplet(0, null , initial.twin());
 
         //2 Asynchronous A* Searches (Original and Swapped Twin to check if original is unsolvable)
         // Twin search has early stopping if unfeasible
@@ -63,23 +64,23 @@ public class Solver {
             recentQ = queue.delMin();
             if (twinQueue.isEmpty()) solvable = true;
             if (solvable != true) recentTwin = twinQueue.delMin();
-
-            // do not add a move when we pop the starting board
-            if(!queue.isEmpty()) internalMoves++;
-            if(!twinQueue.isEmpty()) twinMoveNumber++;            
-
+          
             for (Board x : recentQ.tiles.neighbors()){
-                // if the neighboring tile is the same as prev tile, ignore (redundancy)
-                if(recentQ.prev ==null) queue.insert(new Triplet(internalMoves, recentQ, x));
-                    else{
-                        if(!recentQ.prev.getTiles().equals(x)) queue.insert(new Triplet(internalMoves, recentQ, x));
+                if(recentQ.getPrev() ==null) queue.insert(new Triplet(1, recentQ, x));
+                else{
+                    // if the neighboring tile is the same as prev tile, ignore (redundancy)
+                    if(!recentQ.getPrev().getTiles().equals(x)) {
+                        queue.insert(new Triplet(recentQ.getMoves()+1, recentQ, x));
                     }
+                }
 
             }
+            // twin block
             if (solvable != true) {
                 for (Board y : recentTwin.tiles.neighbors()){
-                    if(recentTwin.prev !=null) {
-                            if(!recentTwin.prev.getTiles().equals(y)) twinQueue.insert(new Triplet(twinMoveNumber, recentTwin, y));
+                    if(recentTwin.getPrev() ==null )twinQueue.insert(new Triplet(1, recentTwin, y));
+                    else {
+                        if(!recentTwin.getPrev().getTiles().equals(y)) twinQueue.insert(new Triplet(recentTwin.getMoves()+1, recentTwin, y));
                     }
                 }
             }
@@ -92,20 +93,12 @@ public class Solver {
             while(!target.tiles.equals(starting.tiles)) {
                 solList.push(target.getTiles());
                 moveNumber++;
-                target = target.prev;
+                target = target.getPrev();
             }
             // push the original Board
             solList.push(target.getTiles());
             
         }
-
-        // NOTE: getMoves returns the number of moves made UP TO the recentQ's tile (exclusive)
-        //if(internalMoves > 0) assert internalMoves == recentQ.getMoves()+1;
-
-        // special case when the input is already solved
-        if(solList.isEmpty()) solList.push(recentQ.getTiles());
-
-
     }
 
     // is the initial board solvable? (see below)
@@ -141,7 +134,6 @@ public class Solver {
 
         // print solution to standard output
         if (!solver.isSolvable()) {
-            StdOut.println(solver.isSolvable());
             StdOut.println("No solution possible");
         }
         else {

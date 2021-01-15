@@ -1,4 +1,6 @@
-
+/* Author: Ayrton San Joaquin
+*  January 12 2020
+*/
 
 import java.util.Arrays;
 import edu.princeton.cs.algs4.Stack;
@@ -150,20 +152,17 @@ public class Board {
     public Board twin() {
         Board twin = new Board(mainBoard);
         int firstItem;
-        int secondItem;
-        if (twin.mainBoard[0][0] != 0) {
-            firstItem = twin.mainBoard[0][0];
-            secondItem = twin.mainBoard[0][1];
 
-            twin.mainBoard[0][0] = secondItem;
-            twin.mainBoard[0][1] = firstItem;
-        }
-        else {
-            firstItem = twin.mainBoard[0][1];
-            secondItem = twin.mainBoard[0][2];
-
-            twin.mainBoard[0][1] = secondItem;
-            twin.mainBoard[0][2] = firstItem;
+        for (int i = 0; i < n; i++){
+            for (int j = 0 ; j < n; j++){
+                if (twin.mainBoard[i][j] != 0 && twin.mainBoard[i+1][j] != 0) {
+                    firstItem = twin.mainBoard[i][j];
+                    twin.mainBoard[i][j] = twin.mainBoard[i+1][j];
+                    twin.mainBoard[i+1][j] = firstItem;
+                }
+                break;
+            }
+            break;
         }
         return twin;
     }
