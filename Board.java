@@ -50,7 +50,7 @@ public class Board {
         for (int i = 0; i < mainBoard.length; i++) {
             for (int j = 0; j < mainBoard.length; j++) {
             // if everything is in its place AND 0 is in the very last position
-            if (!(i == n-1 && j == n-1) && mainBoard[i][j] != ((i * n) + (j+1))) incorrect++;
+            if (!(i == n-1 && j == n-1) && mainBoard[i][j] != ((i * n) + (j+1)) && mainBoard[i][j] != 0) incorrect++;
             if (((i == n-1 && j == n-1) &&(mainBoard[i][j]!= 0))) incorrect++;
             }
         }
@@ -150,9 +150,8 @@ public class Board {
     }
 
 
-    // a board that is obtained by exchanging any pair of tiles
+    // a board that is obtained by exchanging the very first pair of tiles that are non-zero
     // to determine if original board is solvable
-    // tbh, I could have just used a double for-loop...
     public Board twin() {
         Board twin = new Board(mainBoard);
         int firstItem;
@@ -163,8 +162,8 @@ public class Board {
                     firstItem = twin.mainBoard[i][j];
                     twin.mainBoard[i][j] = twin.mainBoard[i+1][j];
                     twin.mainBoard[i+1][j] = firstItem;
+                    break;
                 }
-                break;
             }
             break;
         }
@@ -182,7 +181,7 @@ public class Board {
         Board test = new Board(tiles);
 
         
-        
+/*        
         StdOut.println(test);
         
         StdOut.println(test.isGoal());
@@ -194,6 +193,7 @@ public class Board {
         for (Board board : test.neighbors()) {
             StdOut.println(board);
         }
+*/
     }
 
 }
