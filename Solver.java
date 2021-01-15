@@ -90,14 +90,13 @@ public class Solver {
 
         target = recentQ;
         if (solvable){
-            while(!target.tiles.equals(starting.tiles)) {
+            while(target != null) {
                 solList.push(target.getTiles());
-                moveNumber++;
                 target = target.getPrev();
+                moveNumber++;
             }
-            // push the original Board
-            solList.push(target.getTiles());
-            
+            // the initial tile should not be counted as a move
+            moveNumber--;    
         }
     }
 
