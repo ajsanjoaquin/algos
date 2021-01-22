@@ -1,3 +1,6 @@
+/* Author: Ayrton San Joaquin
+January 2021 */
+
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.SET;
@@ -69,9 +72,9 @@ public class PointSET {
     }
     // unit testing of the methods (optional) 
     public static void main(String[] args) {
-        Point2D a = new Point2D(0,0.4);
-        Point2D b = new Point2D(0.3,0.3);
-        Point2D c = new Point2D(0,2);
+        Point2D a = new Point2D(0.7,0.2);
+        Point2D b = new Point2D(0.5,0.4);
+        Point2D c = new Point2D(0.2,0.3);
 
         PointSET test = new PointSET();
         test.insert(a);
