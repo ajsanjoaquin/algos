@@ -72,8 +72,8 @@ public class SAP {
         In in1 = new In(args[0]);
         in1.readInt();
         in1.readInt();
-        int v = 7;
-        int w = 5;
+        int v = 8;
+        int w = 13;
         int length   = sap.length(v, w);
         int ancestor = sap.ancestor(v, w);
         StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
