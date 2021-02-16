@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.ST;
 import edu.princeton.cs.algs4.FlowNetwork;
@@ -81,8 +82,10 @@ public class BaseballElimination {
         checkValidTeam(team);
         if (trivialElim(team)) return true;
         createNetwork(team);
+        //StdOut.print(network.toString());
         // compute maxflow solution using Ford-Fulkerson Algorithm
         FordFulkerson sol = new FordFulkerson(network, 0, network.V()-1); // manipulates original object
+        //StdOut.print(network.toString());
 
         // a team is only eliminated iff its game vertices are not full
         for (FlowEdge edge : network.adj(0))
@@ -133,8 +136,8 @@ public class BaseballElimination {
                 // s to game vertices
                 network.addEdge(new FlowEdge(source, gameVertex, againstTable[row][col]));
                 // each game vertex to two team vertices
-                network.addEdge(new FlowEdge(gameVertex, gameVertices + row, Double.POSITIVE_INFINITY));
-                network.addEdge(new FlowEdge(gameVertex, gameVertices + col, Double.POSITIVE_INFINITY));
+                network.addEdge(new FlowEdge(gameVertex, gameVertices + row + 1, Double.POSITIVE_INFINITY));
+                network.addEdge(new FlowEdge(gameVertex, gameVertices + col + 1, Double.POSITIVE_INFINITY));
                 gameVertex++;
             }
             //assert gameVertex == gameVertices;
@@ -168,6 +171,17 @@ public class BaseballElimination {
     
     public static void main(String[] args) {
         BaseballElimination division = new BaseballElimination(args[0]);
-        division.isEliminated("Boston");
+        for (String team : division.teams()) {
+            if (division.isEliminated(team)) {
+                StdOut.print(team + " is eliminated by the subset R = { ");
+                for (String t : division.certificateOfElimination(team)) {
+                    StdOut.print(t + " ");
+                }
+                StdOut.println("}");
+            }
+            else {
+                StdOut.println(team + " is not eliminated");
+            }
+        }
     }
 }
