@@ -1,3 +1,7 @@
+/* Author: Ayrton San Joaquin
+*  February 12 2020
+*/
+
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.ST;
@@ -142,25 +146,19 @@ public class BaseballElimination {
             }
             //assert gameVertex == gameVertices;
             // team vertex to sink
-            // using a teamVertexCount instead of row to avoid skipping
             int teamVertex = (gameVertices + row) + 1;
             // capacity = wins[arg_team] + remaining[arg_team] - wins[team vertex]
-            network.addEdge(new FlowEdge(teamVertex, sink, wins(team) + remaining(team) - teamTable.get(row)[0]));
+            network.addEdge(new FlowEdge(teamVertex, sink, Math.max(0, wins(team) + remaining(team) - teamTable.get(row)[0])));
         }
     }
 
     private void certify(FlowNetwork network, FordFulkerson sol, String team) {
         // subset of other teams in the division where the selected team is mathematically eliminated
         Bag<String> subset = new Bag<>();
-        int gameVertices = (numberOfTeams()-1) * (numberOfTeams() - 2) / 2;
-        boolean encounteredTeam = false;   
+        int gameVertices = numberOfTeams() * (numberOfTeams() - 1) / 2; 
         for (String opposing : teams()) {
+            // the queried team will also be found, but it will not affect the solution
             int teamIndex = teamList.get(opposing);
-            if (opposing == team) {
-                encounteredTeam = true;
-                continue;
-            }
-            if (encounteredTeam) teamIndex--; // decrease the index to skip queried team
             // the team vertex corresponding to the given opposing team
             int teamVertex = (gameVertices + teamIndex) + 1;
             // check if the team is within the mincut
