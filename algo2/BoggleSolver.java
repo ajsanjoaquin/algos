@@ -1,3 +1,8 @@
+/* Author: Ayrton San Joaquin
+*  February 19 2020
+*/
+
+
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.ST;
 import edu.princeton.cs.algs4.In;
