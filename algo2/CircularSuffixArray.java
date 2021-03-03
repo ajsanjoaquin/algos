@@ -5,6 +5,10 @@
 
 import edu.princeton.cs.algs4.StdOut;
 
+/** While sorting string with 3-Way QuickString Sort,
+ * the index list is implicitly  sorted.
+ * No resorted string is returned.
+*/
 public class CircularSuffixArray {
     private final int len;
     private int[] idxList;
@@ -24,14 +28,14 @@ public class CircularSuffixArray {
      *
      * @param a the array to be sorted
      */
-    public void sort(String a) {
+    private void sort(String a) {
         sort(a, 0, a.length()-1, 0);
     }
 
     // return the dth character of s, -1 if d = length of s
     private int charAt(String s, int d) { 
         assert d >= 0 && d <= s.length();
-        if (d >= s.length()) return s.charAt(d-s.length());                 //^^
+        if (d >= s.length()) return s.charAt(d-s.length());
         return s.charAt(d);
     }
 
@@ -92,7 +96,6 @@ public class CircularSuffixArray {
         idxList = new int[len];
         
         for (int i = 0; i < len; i++) {
-            //CircularSuffix suffix = new CircularSuffix(s, s.charAt(i));
             idxList[i] = i;
         }
         sort(s);
